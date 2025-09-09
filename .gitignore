@@ -1,4 +1,4 @@
 _
-.log
-.dvi
-.pdf
+*.log
+*.dvi
+*.pdf
