@@ -1,0 +1,31 @@
+% カウンタ定義
+\def\Chapter{\number\ChapterCounter}
+\def\Problem{\number\ProblemCounter}
+
+\def\NextProblem{\advance\ProblemCounter by 1}
+\def\NextChapter{\advance\ChapterCounter by 1 \ProblemCounter=1}
+
+% フォント定義
+\font\ninebf=cmbx9
+
+% 演習番号
+\def\ExerciseNumber{\Chapter.\Problem}
+
+% 見出しの寸法の定義
+\setbox0=\hbox{\ninebf COMMENT 0.0}
+\newdimen\enviromentspace
+\enviromentspace=\wd0
+
+% 見出し
+\def\Title#1{\noindent{\ninebf \hbox to\enviromentspace{\spread{#1} \ExerciseNumber}}}
+
+% 文字間隔を広げる
+\def\spread#1{\expandafter\spreadhelper#1\end}
+\def\spreadhelper#1#2\end{%
+  #1%
+  \ifx\end#2\end
+  \else
+    \hfil
+    \spreadhelper#2\end
+  \fi
+}
