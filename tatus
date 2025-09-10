@@ -1,0 +1,41 @@
+[33mcommit e743e93b5a4b4a7d9397924e1f4c8cae223c405b[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: sakuramath1997 <takahashi.1997.jp@gmail.com>
+Date:   Wed Sep 10 13:02:29 2025 +0900
+
+    --execise オプション指定時に --directory オプションを指定しなくてよいようにしました
+
+[33mcommit 21d3686c3a4f48c36af41575ba4c8080505d699e[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: sakuramath1997 <takahashi.1997.jp@gmail.com>
+Date:   Wed Sep 10 11:10:48 2025 +0900
+
+    コンパイルを楽に行なうためのスクリプトを作成しました。現状は Windows のみです。
+
+[33mcommit 822432b27127da993755a586c0920ba188ea60df[m
+Author: sakuramath1997 <takahashi.1997.jp@gmail.com>
+Date:   Wed Sep 10 02:28:55 2025 +0900
+
+    gitignore および 1.1.tex の読点を修正しました。
+
+[33mcommit 0a0c8bb0f6cf57ebbddc92e74ad25c3a69168a7a[m
+Author: sakuramath1997 <takahashi.1997.jp@gmail.com>
+Date:   Wed Sep 10 02:22:36 2025 +0900
+
+    見出しを表示する仕組みを制御綴として定義した上で、プリアンブルを分離しました。
+
+[33mcommit 61953c7a6cafb09b7ad14d4c7c72da60877f389a[m
+Author: sakuramath1997 <takahashi.1997.jp@gmail.com>
+Date:   Wed Sep 10 01:31:27 2025 +0900
+
+    Exercise 1.1 の問題・解答・コメントを記載しました
+
+[33mcommit 8e5460a01b22514231bfbbc11067f1daa335d880[m
+Author: sakuramath1997 <takahashi.1997.jp@gmail.com>
+Date:   Tue Sep 9 21:32:37 2025 +0900
+
+    演習問題のためのファイルを作成しました
+
+[33mcommit 1c78fcec2ac4b3eee02d671fb087fbbeb5e31550[m
+Author: sakuramath1997 <takahashi.1997.jp@gmail.com>
+Date:   Tue Sep 9 20:17:58 2025 +0900
+
+    gitignore を追加しました
