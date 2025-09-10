@@ -1,17 +1,72 @@
 @echo off
 setlocal enabledelayedexpansion
 
-REM ptex ã® --jobname ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’å‰æã¨ã—ã¦ã„ã‚‹ã®ã§ï¼Œå‹•ä½œä¿è¨¼ã¯ TeX Live ç‰ˆã®ã¿ã§ã™ã€‚
+goto :boot
 
+REM ptex ‚Ì --jobname ƒIƒvƒVƒ‡ƒ“‚ğ‘O’ñ‚Æ‚µ‚Ä‚¢‚é‚Ì‚ÅC“®ì•ÛØ‚Í TeX Live ”Å‚Ì‚İ‚Å‚·B
+REM --exercise ƒIƒvƒVƒ‡ƒ“‚ğw’è‚·‚éê‡CƒfƒtƒHƒ‹ƒg‚Å‘Ã“–‚ÈƒtƒHƒ‹ƒ_‚ğ’T‚·‹@”\‚ğ’Ç‰Á‚µ‚½•û‚ª‚æ‚¢‚æ‚¤‚È‹C‚ª‚µ‚Ä‚¢‚Ü‚·‚ª–¢‘Î‰‚Å‚·B
+
+:show_help
+echo ŠT—vF
+echo   TeX ƒtƒ@ƒCƒ‹‚ğ ptex ‚Æ dvipdfmx ‚ğg—p‚µ‚Ä PDF ‚É•ÏŠ·‚µ‚Ü‚·B
+echo   ptex ‚Ì --jobname ƒIƒvƒVƒ‡ƒ“‚ªg—p‚Å‚«‚é‚±‚Æ‚ğ‘O’ñ‚Æ‚µ‚Ä‚¨‚èC“®ì•ÛØ‚Í TeX Live ”Å‚Ì‚İ‚Å‚·B
+echo.
+echo g—p•û–@F
+echo   %~n0     [ƒIƒvƒVƒ‡ƒ“] [ƒtƒ@ƒCƒ‹–¼]
+echo   %~nx0 [ƒIƒvƒVƒ‡ƒ“] [ƒtƒ@ƒCƒ‹–¼]
+echo.
+echo ƒIƒvƒVƒ‡ƒ“F
+echo   -h, --help                          ‚±‚Ìƒwƒ‹ƒvƒƒbƒZ[ƒW‚ğ•\¦‚µ‚Ü‚·B
+echo   -d, --directory, --dir ^<DIR^>        ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ğ^<DIR^>‚Éw’è‚µ‚Ü‚·B
+echo   -e, --exercise, --exe ^<NUM^>         ‰‰K–â‘è‚ğ^<NUM^>‚Éw’è‚µ‚Ü‚·B
+echo                                       ‚½‚¾‚µC^<NUM^>::=^<Í”Ô†^>.^<–â‘è”Ô†^>‚Æ‚µC
+echo                                       ^<Í”Ô†^>‚Íƒ[ƒ–„‚ß‚µ‚È‚¢‚à‚Ì‚Æ‚µ‚Ü‚·B
+echo.
+echo ˆø”F
+echo   ƒtƒ@ƒCƒ‹–¼                          ƒRƒ“ƒpƒCƒ‹‚·‚é TeX ƒtƒ@ƒCƒ‹–¼
+echo                                       i.tex Šg’£q‚ÍÈ—ª‰Â”\‚Å‚·j
+echo.
+echo g—p—áF
+echo   %~nx0 report                  ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚Ì report.tex ‚ğ‘g”Å‚·‚éB
+echo   %~nx0 -d C:\tex report        w’è‚µ‚½ƒfƒBƒŒƒNƒgƒŠ‚Ì report.tex ‚ğ‘g”Å‚·‚éB
+echo   %~nx0 --exercise 2.3          ‰‰K–â‘è 2.3.tex ‚ğ‘g”Å‚·‚éB
+echo   %~nx0 -d exercises -e 1.5     exercises ƒfƒBƒŒƒNƒgƒŠ‚Å‰‰K–â‘è 1.5 ‚ğ‘g”Å‚·‚éB
+echo.
+echo ‰‰K–â‘è‚ÉŠÖ‚·‚é•â‘«F
+echo   --exercise ƒIƒvƒVƒ‡ƒ“‚ÍˆÈ‰º‚Ì‡˜‚Åƒtƒ@ƒCƒ‹‚ğŒŸõ‚µ‚Ü‚·F
+echo   1. Œ»İ‚ÌƒfƒBƒŒƒNƒgƒŠ‚Å ^<Í”Ô†^>.^<–â‘è”Ô†^>.tex ‚ğŒŸõ‚µ‚Ü‚·B
+echo   2. ../../exercise/ch^<2Œ…‚Åƒ[ƒ–„‚ß‚µ‚½Í”Ô†^>/ ƒfƒBƒŒƒNƒgƒŠ‚Å ^<Í”Ô†^>.^<–â‘è”Ô†^>.tex ‚ğŒŸõ‚µ‚Ü‚·B
+echo      ‚±‚±‚Å^<2Œ…‚Åƒ[ƒ–„‚ß‚µ‚½Í”Ô†^>‚ÍC^<Í”Ô†^>‚ªˆêŒ…‚Ìê‡‚ÉC0‚ğæ“ª‚É•t‚µ‚½‚à‚Ì‚Æ‚µ‚Ä’è‹`‚³‚ê‚Ü‚·B
+echo.
+echo ’ˆÓ–€F
+echo   *  ptex ‚Æ dvipdfmx ‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·B
+echo   *  ptex ‚Í --jobname ƒIƒvƒVƒ‡ƒ“‚É‘Î‰‚µ‚Ä‚¢‚é•K—v‚ª‚ ‚è‚Ü‚·B
+echo   *  ‰‰K–â‘è‚Ìƒtƒ@ƒCƒ‹ŒŸõ‹@”\‚ÍCtex-book-25 ƒŠƒ|ƒWƒgƒŠ‚ÌƒfƒBƒŒƒNƒgƒŠ\‘¢‚ğ‘z’è‚µ‚½‚à‚Ì‚Å‚·B
+echo.
+exit /b 0
+
+:boot
 set WORKING_DIR=
 set SHOW_HELP=
 set EXERCISE=
 set FILE=
 set FILE_SPECIFIED=
+
 call :parse_args %*
+if errorlevel 1 goto :end
+
+call :init
+if errorlevel 1 goto :end
+
+REM ƒwƒ‹ƒv‚ª•\¦‚³‚ê‚½ê‡‚ÍI—¹
+if defined SHOW_HELP goto :end
 
 call :run "is_TeX_installed"
+if errorlevel 1 goto :end
+
 call :run "is_dvipdfmx_installed"
+if errorlevel 1 goto :end
+
 call :run "main"
 goto :end
 
@@ -20,7 +75,7 @@ goto :end
 if "%~1"=="" goto :parse_args_done
 if "%~1"=="-d" (
     if "%~2"=="" (
-        echo Error: -d option requires a directory argument
+        echo Error: -d ƒIƒvƒVƒ‡ƒ“‚ÍCˆÚ“®æ‚ÌƒfƒBƒŒƒNƒgƒŠ‚ğˆø”‚Æ‚µ‚Ä“n‚·•K—v‚ª‚ ‚è‚Ü‚·B
         exit /b 1
     )
     set "WORKING_DIR=%~2"
@@ -30,7 +85,7 @@ if "%~1"=="-d" (
 )
 if "%~1"=="--directory" (
     if "%~2"=="" (
-        echo Error: --directory option requires a directory argument
+        echo Error: --directory ƒIƒvƒVƒ‡ƒ“‚ÍCˆÚ“®æ‚ÌƒfƒBƒŒƒNƒgƒŠ‚ğˆø”‚Æ‚µ‚Ä“n‚·•K—v‚ª‚ ‚è‚Ü‚·B
         exit /b 1
     )
     set "WORKING_DIR=%~2"
@@ -40,7 +95,7 @@ if "%~1"=="--directory" (
 )
 if "%~1"=="--dir" (
     if "%~2"=="" (
-        echo Error: --directory option requires a directory argument
+        echo Error: --directory ƒIƒvƒVƒ‡ƒ“‚ÍCˆÚ“®æ‚ÌƒfƒBƒŒƒNƒgƒŠ‚ğˆø”‚Æ‚µ‚Ä“n‚·•K—v‚ª‚ ‚è‚Ü‚·B
         exit /b 1
     )
     set "WORKING_DIR=%~2"
@@ -50,7 +105,7 @@ if "%~1"=="--dir" (
 )
 if "%~1"=="--exercise" (
     if "%~2"=="" (
-        echo Error: --exercise option requires a exercise number argument
+        echo Error: --exercise ƒIƒvƒVƒ‡ƒ“‚ÍC^<Í”Ô†^>.^<–â‘è”Ô†^>Œ`®‚Å•\Œ»‚³‚ê‚½‰‰K–â‘è‚ğˆø”‚Æ‚µ‚Ä“n‚·•K—v‚ª‚ ‚è‚Ü‚·B
         exit /b 1
     )
     set "EXERCISE=%~2"
@@ -60,7 +115,7 @@ if "%~1"=="--exercise" (
 )
 if "%~1"=="--exe" (
     if "%~2"=="" (
-        echo Error: --exe option requires a exercise number argument
+        echo Error: --exe option ƒIƒvƒVƒ‡ƒ“‚ÍC^<Í”Ô†^>.^<–â‘è”Ô†^>Œ`®‚Å•\Œ»‚³‚ê‚½‰‰K–â‘è‚ğˆø”‚Æ‚µ‚Ä“n‚·•K—v‚ª‚ ‚è‚Ü‚·B
         exit /b 1
     )
     set "EXERCISE=%~2"
@@ -70,7 +125,7 @@ if "%~1"=="--exe" (
 )
 if "%~1"=="-e" (
     if "%~2"=="" (
-        echo Error: -e option requires a exercise number argument
+        echo Error: -e ƒIƒvƒVƒ‡ƒ“‚ÍC^<Í”Ô†^>.^<–â‘è”Ô†^>Œ`®‚Å•\Œ»‚³‚ê‚½‰‰K–â‘è‚ğˆø”‚Æ‚µ‚Ä“n‚·•K—v‚ª‚ ‚è‚Ü‚·B
         exit /b 1
     )
     set "EXERCISE=%~2"
@@ -94,108 +149,195 @@ if "%FILE_SPECIFIED%"=="" (
     shift
     goto :parse_args_loop
 )
-echo Error: Unknown option "%~1"
-echo;
-goto :end
+echo Error: ‘z’è‚³‚ê‚Ä‚¢‚È‚¢ƒIƒvƒVƒ‡ƒ“‚Å‚·F"%~1"
+echo.
 exit /b 1
 
 :parse_args_done
-echo SHOW_HELP: [%SHOW_HELP%]
-echo FILE: [%FILE%]
-echo EXERCISE: [%EXERCISE%]
-echo WORKING_DIR: [%WORKING_DIR%]
-echo;
+rem echo SHOW_HELP: [%SHOW_HELP%]
+rem echo FILE: [%FILE%]
+rem echo EXERCISE: [%EXERCISE%]
+rem echo WORKING_DIR: [%WORKING_DIR%]
+rem echo;
+exit /b 0
+
+:init
+if defined SHOW_HELP (
+    call :show_help
+    exit /b 0
+)
 exit /b 0
 
 :run
-echo begin %~1
+echo Log:   begin %~1
 call :%~1
 if errorlevel 1 (
-    echo Error: %~1 failed.
+    echo Error: %~1 ‚ÌÀs‚É¸”s‚µ‚Ü‚µ‚½B
     exit /b 1
 )
-echo end %~1
+echo Log:   end %~1
 echo.
 exit /b 0
 
 :is_TeX_installed
 ptex --version >nul 2>&1
 if %errorlevel% equ 0 (
-    for /f "tokens=*" %%a in ('tex --version 2^>nul ^| findstr "^e-upTeX "') do (
+    for /f "tokens=*" %%a in ('ptex --version 2^>nul ^| findstr "^e-upTeX "') do (
         for /f "tokens=2" %%b in ("%%a") do (
-            echo TeX %%b is installed.
+            echo Log:   pTeX %%b is installed.
         )
     )
+) else (
+    echo Error: pTeX ‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB
 )
 exit /b 0
 
 :is_dvipdfmx_installed
 dvipdfmx --version >nul 2>&1
 if %errorlevel% equ 0 (
-    echo dvipdfmx is installed
+    echo Log:   dvipdfmx is installed
 ) else (
-    echo dvipdfmx is not found
+    echo Error: dvipdfmx ‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB
 )
 exit /b 0
 
 :main
-if defined SHOW_HELP (
-    echo Help was requested
-    goto :main_end
-)
-if defined WORKING_DIR (
-    if not exist "%WORKING_DIR%" (
-        echo Error: Directory "%WORKING_DIR%" does not exist.
-        goto :main_end
-    )
-    cd /d "%WORKING_DIR%"
-    if %errorlevel% neq 0 (
-        echo Error: Failed to change to directory "%WORKING_DIR%".
-        goto :main_end
-    )
-    echo Changed to directory: %WORKING_DIR%
-)
+call :change_working_directory
+if errorlevel 1 goto :main_end
 
-if "%FILE_SPECIFIED%"=="1" (
-    if exist "%FILE%.tex" (
-        set "%FILE"="%FILE%.tex"
-        goto :compile_file
-    )
-    if exist "%FILE%" (
-        goto :compile_file
-    )
-    echo Error: File "%FILE%.tex" or "%FILE%" does not exist in the current directory.
-    echo Hint: If you want to change working directory, then you specify --directory option.
-    goto :main_end
-)
-if "%FILE_SPECIFIED%"=="" (
-    if defined %EXERCISE% (
-        if exist "%EXERCISE%.tex" (
-            set "%FILE"="%EXERCISE%.tex"
-            set "%FILE_SPECIFIED%"=1
-            goto :compile_file
-        )
-        if exist "%EXERCISE%" (
-            set "%FILE"="%EXERCISE%"
-            set "%FILE_SPECIFIED%"=1
-            goto :compile_file
-        )
-        echo Error: File "%EXERCISE%.tex" or "%EXERCISE%" does not exist in the current directory.
-        echo Hint: If you want to change working directory, then you specify --directory option.
-        goto :main_end
-    )
-    echo Error: Any source file is not specified. You can use --file option or --exercise option.  
-    goto :main_end
-)
-
-:compile_file
-echo %FILE%
-ptex --jobname="%FILE%" %FILE%
-dvipdfmx %FILE%.dvi
-goto :main_end
+call :determine_and_compile_file
+if errorlevel 1 goto :main_end
 
 :main_end
 exit /b 0
 
+:change_working_directory
+if not defined WORKING_DIR exit /b 0
+
+if not exist "%WORKING_DIR%" (
+    echo Error: "%WORKING_DIR%"ƒfƒBƒŒƒNƒgƒŠ‚ª‘¶İ‚µ‚Ü‚¹‚ñB
+    exit /b 1
+)
+
+cd /d "%WORKING_DIR%"
+if %errorlevel% neq 0 (
+    echo Error: "%WORKING_DIR%"ƒfƒBƒŒƒNƒgƒŠ‚ÉˆÚ“®‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½B
+    exit /b 1
+)
+
+echo Log:   %WORKING_DIR%ƒfƒBƒŒƒNƒgƒŠ‚ÉˆÚ“®‚µ‚Ü‚µ‚½B
+exit /b 0
+
+:determine_and_compile_file
+if "%FILE_SPECIFIED%"=="1" (
+    call :handle_file_specified
+    exit /b %errorlevel%
+)
+
+if defined EXERCISE (
+    call :handle_exercise_specified
+    exit /b %errorlevel%
+)
+
+echo Error: ƒ\[ƒXƒtƒ@ƒCƒ‹‚ªw’è‚³‚ê‚Ä‚¢‚È‚¢‚©CƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ÉŒ©‚Â‚©‚è‚Ü‚¹‚ñBˆø”‚Éƒtƒ@ƒCƒ‹–¼‚ğ“n‚·‚©C--exercise ƒIƒvƒVƒ‡ƒ“‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B
+echo Hint:  ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ğ•ÏX‚µ‚½‚¢ê‡‚ÍC--directory ƒIƒvƒVƒ‡ƒ“‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B
+exit /b 1
+
+:handle_file_specified
+if exist "%FILE%.tex" (
+    set "FILE=%FILE%.tex"
+    call :compile_file
+    exit /b 0
+)
+
+if exist "%FILE%" (
+    call :compile_file
+    exit /b 0
+)
+
+echo Error: "%FILE%.tex"C"%FILE%"‚ªƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚É‘¶İ‚µ‚Ü‚¹‚ñBdoes not exist in the current directory.
+echo Hint:  ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ğ•ÏX‚µ‚½‚¢ê‡‚ÍC--directory ƒIƒvƒVƒ‡ƒ“‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B
+exit /b 1
+
+:handle_exercise_specified
+call :parse_exercise_number
+if errorlevel 1 exit /b 1
+
+call :try_current_directory
+if %errorlevel% equ 0 exit /b 0
+
+call :try_exercise_directory
+exit /b %errorlevel%
+
+:parse_exercise_number
+set TEMP=%EXERCISE%
+for /f "tokens=1 delims=." %%a in ("%TEMP%") do (
+    set "Chapter=%%a"
+)
+for /f "tokens=2 delims=." %%a in ("%TEMP%") do (
+    set "Problem=%%a"
+)
+
+if not defined Chapter (
+    echo Error: ‰‰K–â‘è‚ÌŒ`®‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñB^<Í”Ô†^>.^<–â‘è”Ô†^>Œ`®‚Å•\Œ»‚³‚ê‚½‰‰K–â‘è‚ğˆø”‚Æ‚µ‚Ä“n‚·•K—v‚ª‚ ‚è‚Ü‚·B
+    exit /b 1
+)
+
+if not defined Problem (
+    echo Error: ‰‰K–â‘è‚ÌŒ`®‚ª³‚µ‚­‚ ‚è‚Ü‚¹‚ñB^<Í”Ô†^>.^<–â‘è”Ô†^>Œ`®‚Å•\Œ»‚³‚ê‚½‰‰K–â‘è‚ğˆø”‚Æ‚µ‚Ä“n‚·•K—v‚ª‚ ‚è‚Ü‚·B
+    exit /b 1
+)
+
+exit /b 0
+
+:try_current_directory
+if exist "%Chapter%.%Problem%.tex" (
+    set "FILE=%Chapter%.%Problem%.tex"
+    set "FILE_SPECIFIED=1"
+    call :compile_file
+    exit /b 0
+)
+exit /b 1
+
+:try_exercise_directory
+set "PaddedChapter=0%Chapter%"
+set "PaddedChapter=%PaddedChapter:~-2%"
+if not exist "../../exercise/ch%PaddedChapter%" (
+    echo Error: "%Chapter%.%Problem%.tex"ƒtƒ@ƒCƒ‹‚ªƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚É‘¶İ‚µ‚Ü‚¹‚ñB
+    echo Hint:  ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ğ•ÏX‚µ‚½‚¢ê‡‚ÍC--directory ƒIƒvƒVƒ‡ƒ“‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B
+    exit /b 1
+)
+
+pushd "../../exercise/ch%PaddedChapter%"
+if exist "%Chapter%.%Problem%.tex" (
+    set "FILE=%Chapter%.%Problem%.tex"
+    set "FILE_SPECIFIED=1"
+    popd
+    cd /d "../../exercise/ch%PaddedChapter%"
+    call :compile_file
+    exit /b 0
+)
+
+popd
+echo Error: "%Chapter%.%Problem%.tex"ƒtƒ@ƒCƒ‹‚ªƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚É‘¶İ‚µ‚Ü‚¹‚ñB
+echo Hint:  ƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ğ•ÏX‚µ‚½‚¢ê‡‚ÍC--directory ƒIƒvƒVƒ‡ƒ“‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B
+exit /b 1
+
+:compile_file
+echo Compiling: %FILE%
+ptex --jobname="%FILE%" %FILE%
+if %errorlevel% neq 0 (
+    echo Error: ptex compilation failed.
+    exit /b 1
+)
+
+dvipdfmx %FILE%.dvi
+if %errorlevel% neq 0 (
+    echo Error: dvipdfmx conversion failed.
+    exit /b 1
+)
+
+echo Log:   Compilation completed successfully.
+exit /b 0
+
 :end
-echo end.
